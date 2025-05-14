@@ -19,6 +19,9 @@ function App() {
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
 
   // buscar jogadores
   useEffect(() => {
@@ -146,154 +149,247 @@ function App() {
     }
   };
 
+  // Filtrar jogadores baseado na busca
+  const filteredJogadores = jogadores.filter(jogador =>
+    jogador.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    jogador.team.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    jogador.nationality.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Calcular páginas
+  const totalPages = Math.ceil(filteredJogadores.length / rowsPerPage);
+  const paginatedJogadores = filteredJogadores.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
+
   return (
     <div className="App">
-      <h1>Lista de Jogadores</h1>
-      <h2>Adicione, atualize e elimine jogadores de futebol.</h2>
-      
+      <div className="header">
+        <h1 className="header-title">Lista de Jogadores</h1>
+        <div className="header-actions">
+          <button className="action-button btn-primary" onClick={() => setEditingId(null)}>
+            Adicionar Jogador
+          </button>
+        </div>
+      </div>
+
+      <div className="search-bar">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Pesquisar por nome, clube ou nacionalidade..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       {error && <div className="error-message">Erro: {error}</div>}
       {loading && <div className="loading">A carregar...</div>}
-      
-      <form onSubmit={handleSubmit}>
-        <div className="Formulario">
-          <div>
-            <label htmlFor="name">Nome do Jogador</label>
-            <input
-              id="name"
-              name="name"
-              placeholder="Ex: Cristiano Ronaldo"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
+
+      {editingId !== null && (
+        <form onSubmit={handleSubmit} className="edit-form">
+          <div className="Formulario">
+            <div>
+              <label htmlFor="name">Nome do Jogador</label>
+              <input
+                id="name"
+                name="name"
+                placeholder="Ex: Cristiano Ronaldo"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="position">Posição no Campo</label>
+              <input
+                id="position"
+                name="position"
+                placeholder="Ex: Avançado, Médio, Defesa"
+                value={form.position}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="team">Clube Atual</label>
+              <input
+                id="team"
+                name="team"
+                placeholder="Ex: Benfica, Porto, Sporting"
+                value={form.team}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="age">Idade do Jogador</label>
+              <input
+                id="age"
+                name="age"
+                type="number"
+                placeholder="Ex: 25"
+                value={form.age}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="nationality">Nacionalidade</label>
+              <input
+                id="nationality"
+                name="nationality"
+                placeholder="Ex: Portuguesa"
+                value={form.nationality}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="goals">Número de Golos Marcados</label>
+              <input
+                id="goals"
+                name="goals"
+                type="number"
+                placeholder="Ex: 15"
+                value={form.goals}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="assists">Número de Assistências</label>
+              <input
+                id="assists"
+                name="assists"
+                type="number"
+                placeholder="Ex: 8"
+                value={form.assists}
+                onChange={handleChange}
+              />
+            </div>
           </div>
-          <div>
-            <label htmlFor="position">Posição no Campo</label>
-            <input
-              id="position"
-              name="position"
-              placeholder="Ex: Avançado, Médio, Defesa"
-              value={form.position}
-              onChange={handleChange}
-              required
-            />
+          <div className="form-actions">
+            <button type="submit" className="action-button btn-primary">
+              {editingId ? 'Atualizar Jogador' : 'Adicionar Jogador'}
+            </button>
+            <button
+              type="button"
+              className="action-button btn-secondary"
+              onClick={() => {
+                setEditingId(null);
+                setForm({
+                  name: '',
+                  position: '',
+                  team: '',
+                  age: '',
+                  nationality: '',
+                  goals: 0,
+                  assists: 0
+                });
+              }}
+            >
+              Cancelar
+            </button>
           </div>
-          <div>
-            <label htmlFor="team">Clube Atual</label>
-            <input
-              id="team"
-              name="team"
-              placeholder="Ex: Benfica, Porto, Sporting"
-              value={form.team}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="age">Idade do Jogador</label>
-            <input
-              id="age"
-              name="age"
-              type="number"
-              placeholder="Ex: 25"
-              value={form.age}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="nationality">Nacionalidade</label>
-            <input
-              id="nationality"
-              name="nationality"
-              placeholder="Ex: Portuguesa"
-              value={form.nationality}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="goals">Número de Golos Marcados</label>
-            <input
-              id="goals"
-              name="goals"
-              type="number"
-              placeholder="Ex: 15"
-              value={form.goals}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="assists">Número de Assistências</label>
-            <input
-              id="assists"
-              name="assists"
-              type="number"
-              placeholder="Ex: 8"
-              value={form.assists}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        
-        <button className="butaoAdicionar" type="submit">
-          {editingId ? 'Atualizar Jogador' : 'Adicionar Jogador'}
-        </button>
-        
-        {editingId && (
-          <button
-            className="butaoCancelar"
-            type="button"
-            onClick={() => {
-              setEditingId(null);
-              setForm({
-                name: '',
-                position: '',
-                team: '',
-                age: '',
-                nationality: '',
-                goals: 0,
-                assists: 0
-              });
-            }}
-          >
-            Cancelar Edição
-          </button>
-        )}
-      </form>
+        </form>
+      )}
 
       <div className="table-container">
         <table>
           <thead>
             <tr>
-              <th>Nome</th>
+              <th>Jogador</th>
               <th>Posição</th>
               <th>Clube</th>
-              <th>Idade</th>
-              <th>Nacionalidade</th>
-              <th>Golos</th>
-              <th>Assistências</th>
+              <th>Status</th>
+              <th>Estatísticas</th>
+              <th>Última Atualização</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            {jogadores.map(jogador => (
+            {paginatedJogadores.map(jogador => (
               <tr key={jogador._id}>
-                <td>{jogador.name}</td>
+                <td>
+                  <div className="user-cell">
+                    <img
+                      src={`https://ui-avatars.com/api/?name=${encodeURIComponent(jogador.name)}&background=random`}
+                      alt={jogador.name}
+                      className="avatar"
+                    />
+                    <div className="user-info">
+                      <span className="user-name">{jogador.name}</span>
+                      <span className="user-role">{jogador.nationality}</span>
+                    </div>
+                  </div>
+                </td>
                 <td>{jogador.position}</td>
                 <td>{jogador.team}</td>
-                <td>{jogador.age}</td>
-                <td>{jogador.nationality}</td>
-                <td>{jogador.goals}</td>
-                <td>{jogador.assists}</td>
                 <td>
-                  <button onClick={() => handleEdit(jogador)}>Editar</button>
-                  <button onClick={() => handleDelete(jogador._id)}>Eliminar</button>
+                  <div className="status-indicator">
+                    <span className={`status-dot status-active`}></span>
+                    Ativo
+                  </div>
+                </td>
+                <td>
+                  <div className="rating">
+                    <span className="rating-up">▲</span>
+                    {jogador.goals} Gols
+                    <span className="rating-down">▼</span>
+                    {jogador.assists} Assist.
+                  </div>
+                </td>
+                <td>{new Date().toLocaleDateString()}</td>
+                <td>
+                  <button
+                    className="action-button btn-secondary"
+                    onClick={() => handleEdit(jogador)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="action-button btn-secondary"
+                    onClick={() => handleDelete(jogador._id)}
+                  >
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="pagination">
+        <span className="pagination-info">
+          Mostrando {((currentPage - 1) * rowsPerPage) + 1} a {Math.min(currentPage * rowsPerPage, filteredJogadores.length)} de {filteredJogadores.length} jogadores
+        </span>
+        <div className="pagination-controls">
+          <button
+            className="pagination-button"
+            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+          >
+            ←
+          </button>
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i + 1}
+              className={`pagination-button ${currentPage === i + 1 ? 'active' : ''}`}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            className="pagination-button"
+            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+          >
+            →
+          </button>
+        </div>
       </div>
     </div>
   );

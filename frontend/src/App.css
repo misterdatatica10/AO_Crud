@@ -2,184 +2,234 @@
 .App {
   max-width: 1250px;
   margin: 2rem auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   padding: 0 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-h1 {
-  color: #2c3e50;
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #eaeaea;
 }
 
-h2 {
-  color: #7f8c8d;
-  text-align: center;
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  font-weight: normal;
-}
-
-/* Formulário */
-.Formulario {
-  background: linear-gradient(145deg, #ffffff, #f5f5f5);
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 2rem 4rem 3rem 4rem;
-  margin-bottom: 1.5rem;
-}
-
-.Formulario label {
-  color: #34495e;
+.header-title {
+  font-size: 1.1rem;
+  color: #1a1a1a;
   font-weight: 500;
-  margin-bottom: 0.5rem;
 }
 
-.Formulario input {
-  padding: 0.8rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.Formulario input:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-}
-
-.Formulario input::placeholder {
-  color: #bdc3c7;
-}
-
-/* Botões */
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.butaoAdicionar {
-  background: linear-gradient(145deg, #3498db, #2980b9);
-  color: white;
-  width: 100%;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
-
-.butaoAdicionar:hover {
-  background: linear-gradient(145deg, #2980b9, #2472a4);
-  transform: translateY(-2px);
-}
-
-.butaoCancelar {
-  background: linear-gradient(145deg, #e74c3c, #c0392b);
-  color: white;
-  width: 100%;
-  font-size: 1.1rem;
-}
-
-.butaoCancelar:hover {
-  background: linear-gradient(145deg, #c0392b, #a93226);
-  transform: translateY(-2px);
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
 }
 
 /* Tabela */
-table {
-  width: 100%;
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 2rem;
+.table-container {
+  padding: 0 1rem;
 }
 
-thead {
-  background: linear-gradient(145deg, #2c3e50, #34495e);
-  color: white;
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1rem 0;
 }
 
 th {
-  padding: 1.2rem;
   text-align: left;
-  font-weight: 600;
+  padding: 0.75rem 1rem;
+  color: #666;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-bottom: 1px solid #eaeaea;
 }
 
 td {
-  padding: 1rem;
-  border-bottom: 1px solid #ecf0f1;
-  color: #2c3e50;
-}
-
-tr:last-child td {
-  border-bottom: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #1a1a1a;
+  border-bottom: 1px solid #eaeaea;
 }
 
 tr:hover {
-  background-color: #f8f9fa;
+  background-color: #f9fafb;
 }
 
-/* Botões da tabela */
-td button {
+/* Status indicadores */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.status-active {
+  background-color: #22c55e;
+}
+
+.status-inactive {
+  background-color: #ef4444;
+}
+
+/* Avatar e informações do usuário */
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.user-role {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+/* Botões e ações */
+.action-button {
   padding: 0.5rem 1rem;
-  margin: 0 0.3rem;
-  font-size: 0.9rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-td button:first-child {
-  background: linear-gradient(145deg, #f1c40f, #f39c12);
+.btn-primary {
+  background-color: #2563eb;
   color: white;
+  border: none;
 }
 
-td button:first-child:hover {
-  background: linear-gradient(145deg, #f39c12, #e67e22);
+.btn-primary:hover {
+  background-color: #1d4ed8;
 }
 
-td button:last-child {
-  background: linear-gradient(145deg, #e74c3c, #c0392b);
+.btn-secondary {
+  background-color: white;
+  color: #1a1a1a;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-secondary:hover {
+  background-color: #f9fafb;
+}
+
+/* Paginação */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eaeaea;
+}
+
+.pagination-info {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.pagination-button {
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: white;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.pagination-button:hover {
+  background-color: #f9fafb;
+}
+
+.pagination-button.active {
+  background-color: #2563eb;
   color: white;
+  border-color: #2563eb;
 }
 
-td button:last-child:hover {
-  background: linear-gradient(145deg, #c0392b, #a93226);
+/* Formulário */
+.search-bar {
+  padding: 1rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid #eaeaea;
 }
 
-/* Mensagem de erro */
-.error-message {
-  background-color: #fff3f3;
-  color: #e74c3c;
-  padding: 1rem;
-  border-radius: 8px;
-  border-left: 4px solid #e74c3c;
-  margin-bottom: 1rem;
+.search-input {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.875rem;
 }
 
-/* Loading */
-.loading {
-  text-align: center;
-  color: #7f8c8d;
-  padding: 1rem;
-  font-style: italic;
+.search-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* Rating */
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+.rating-up {
+  color: #22c55e;
+}
+
+.rating-down {
+  color: #ef4444;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .Formulario {
-    grid-template-columns: 1fr !important;
-    padding: 1.5rem;
-  }
-  
-  table {
-    display: block;
+  .table-container {
     overflow-x: auto;
-    white-space: nowrap;
   }
   
-  .App {
-    padding: 0 10px;
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .search-bar {
+    flex-direction: column;
   }
 }
