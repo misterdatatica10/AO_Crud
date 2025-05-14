@@ -301,7 +301,7 @@ function App() {
               <th>Jogador</th>
               <th>Posição</th>
               <th>Clube</th>
-              <th>Status</th>
+              <th>Idade</th>
               <th>Estatísticas</th>
               <th>Última Atualização</th>
               <th>Ações</th>
@@ -326,9 +326,8 @@ function App() {
                 <td>{jogador.position}</td>
                 <td>{jogador.team}</td>
                 <td>
-                  <div className="status-indicator">
-                    <span className={`status-dot status-active`}></span>
-                    Ativo
+                  <div className="age-info">
+                    {jogador.age} anos
                   </div>
                 </td>
                 <td>
