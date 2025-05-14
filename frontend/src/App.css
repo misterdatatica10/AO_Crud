@@ -1,145 +1,185 @@
+/* Estilos gerais */
 .App {
+  max-width: 1250px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 20px;
+}
+
+h1 {
+  color: #2c3e50;
   text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h2 {
+  color: #7f8c8d;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  font-weight: normal;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Formulário */
+.Formulario {
+  background: linear-gradient(145deg, #ffffff, #f5f5f5);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem 4rem 3rem 4rem;
+  margin-bottom: 1.5rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.Formulario label {
+  color: #34495e;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.Formulario input {
+  padding: 0.8rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.Formulario input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.Formulario input::placeholder {
+  color: #bdc3c7;
+}
+
+/* Botões */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.butaoAdicionar {
+  background: linear-gradient(145deg, #3498db, #2980b9);
+  color: white;
+  width: 100%;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.butaoAdicionar:hover {
+  background: linear-gradient(145deg, #2980b9, #2472a4);
+  transform: translateY(-2px);
+}
+
+.butaoCancelar {
+  background: linear-gradient(145deg, #e74c3c, #c0392b);
+  color: white;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+.butaoCancelar:hover {
+  background: linear-gradient(145deg, #c0392b, #a93226);
+  transform: translateY(-2px);
+}
+
+/* Tabela */
+table {
+  width: 100%;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+thead {
+  background: linear-gradient(145deg, #2c3e50, #34495e);
   color: white;
 }
 
-.Formulario{
-  text-align: start;
-  
-}
-
-h1{
-  color:#2D2D2D;
-  margin-bottom: 0px;
-  font-weight: 700;
-}
-
-h2{
-  margin-top: 5px;
-  font-weight: 400;
-  color: #878787;
-  font-size: 22px;
-  margin-bottom: 3%;
-}
-
-label{
-  color: #343434;
-  font-family: 'Roboto';
-  font-weight: 500;
-  font-size: 18px;
-}
-
-input {
-  color: #2D2D2D;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 20px;
-  padding: 3px 0;
-  border: none;
-  border-bottom: 2px solid #2D2D2D;
-  outline: none;
-  background: transparent;
-  transition: border-color 0.3s;
-}
-
-input:focus {
-  border-bottom: 2px solid #228B22; /* azul, por exemplo */
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-.butaoAdicionar{
-    grid-column: 1 / -1;
-    justify-self: center;
-    border-radius: 100px;
-    border-color: transparent;
-    background-color: #228B22;
-    color: white;
-    font-size: 20px;
-    font-family: 'Segoe UI';
-    font-weight: 500;
-    width: fit-content;
-    line-height: 0px;
-}
-
-.butaoAdicionar:hover{
-    background-color: #175a17;
-    color: white;
-}
-
-.butaoCancelar{
-    grid-column: 1 / -1;
-    justify-self: center;
-    border-radius: 100px;
-    border-color: #2D2D2D;
-    background-color: white;
-    color: #2D2D2D;
-    font-size: 20px;
-    font-family: 'Segoe UI';
-    font-weight: 500;
-    width: fit-content;
-    line-height: 0px;
-    border-width: 2px;
-    border-style: solid;
-}
-
-table {
-  border: 1px solid #ccc;
-  width: 100%;
-  margin-top: 1rem;
-  font-size: 16px;
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 0.75rem;
-  text-align: left;
-}
-
 th {
-  background-color: #f5f5f5;
+  padding: 1.2rem;
+  text-align: left;
+  font-weight: 600;
 }
 
-button {
-  padding: 0.4rem 0.8rem;
-  margin: 0 0.2rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+td {
+  padding: 1rem;
+  border-bottom: 1px solid #ecf0f1;
+  color: #2c3e50;
 }
 
-button:hover {
-  background-color: #eee;
+tr:last-child td {
+  border-bottom: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Botões da tabela */
+td button {
+  padding: 0.5rem 1rem;
+  margin: 0 0.3rem;
+  font-size: 0.9rem;
+}
+
+td button:first-child {
+  background: linear-gradient(145deg, #f1c40f, #f39c12);
+  color: white;
+}
+
+td button:first-child:hover {
+  background: linear-gradient(145deg, #f39c12, #e67e22);
+}
+
+td button:last-child {
+  background: linear-gradient(145deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+td button:last-child:hover {
+  background: linear-gradient(145deg, #c0392b, #a93226);
+}
+
+/* Mensagem de erro */
+.error-message {
+  background-color: #fff3f3;
+  color: #e74c3c;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+  margin-bottom: 1rem;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  color: #7f8c8d;
+  padding: 1rem;
+  font-style: italic;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .Formulario {
+    grid-template-columns: 1fr !important;
+    padding: 1.5rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .App {
+    padding: 0 10px;
   }
 }

@@ -147,15 +147,16 @@ function App() {
   };
 
   return (
-    <div className="App" style={{ maxWidth: 1250, margin: '2rem auto', fontFamily: 'Segoe UI' }}>
+    <div className="App">
       <h1>Lista de Jogadores</h1>
       <h2>Adicione, atualize e elimine jogadores de futebol.</h2>
-      {error && <div style={{ color: 'red', marginBottom: '1rem' }}>Erro: {error}</div>}
-      {loading && <div>A carregar...</div>}
       
-      <form onSubmit={handleSubmit} style={{ marginBottom: 24, display: 'grid', gap: '1rem' }}>
-        <div className="Formulario" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem 4.5rem', padding: '2rem 4rem 3rem 4rem', backgroundColor: '#f5f5f5' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+      {error && <div className="error-message">Erro: {error}</div>}
+      {loading && <div className="loading">A carregar...</div>}
+      
+      <form onSubmit={handleSubmit}>
+        <div className="Formulario">
+          <div>
             <label htmlFor="name">Nome do Jogador</label>
             <input
               id="name"
@@ -166,7 +167,7 @@ function App() {
               required
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+          <div>
             <label htmlFor="position">Posição no Campo</label>
             <input
               id="position"
@@ -177,7 +178,7 @@ function App() {
               required
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+          <div>
             <label htmlFor="team">Clube Atual</label>
             <input
               id="team"
@@ -188,7 +189,7 @@ function App() {
               required
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+          <div>
             <label htmlFor="age">Idade do Jogador</label>
             <input
               id="age"
@@ -200,7 +201,7 @@ function App() {
               required
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+          <div>
             <label htmlFor="nationality">Nacionalidade</label>
             <input
               id="nationality"
@@ -211,7 +212,7 @@ function App() {
               required
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+          <div>
             <label htmlFor="goals">Número de Golos Marcados</label>
             <input
               id="goals"
@@ -222,7 +223,7 @@ function App() {
               onChange={handleChange}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+          <div>
             <label htmlFor="assists">Número de Assistências</label>
             <input
               id="assists"
@@ -234,9 +235,11 @@ function App() {
             />
           </div>
         </div>
-        <button className="butaoAdicionar" type="submit" style={{ padding: '1.7rem', marginTop: '10px' }}>
+        
+        <button className="butaoAdicionar" type="submit">
           {editingId ? 'Atualizar Jogador' : 'Adicionar Jogador'}
         </button>
+        
         {editingId && (
           <button
             className="butaoCancelar"
@@ -253,15 +256,14 @@ function App() {
                 assists: 0
               });
             }}
-            style={{ padding: '1.7rem' }}
           >
             Cancelar Edição
           </button>
         )}
       </form>
 
-      <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <div className="table-container">
+        <table>
           <thead>
             <tr>
               <th>Nome</th>
@@ -285,7 +287,7 @@ function App() {
                 <td>{jogador.goals}</td>
                 <td>{jogador.assists}</td>
                 <td>
-                  <button onClick={() => handleEdit(jogador)}>Editar</button>{' '}
+                  <button onClick={() => handleEdit(jogador)}>Editar</button>
                   <button onClick={() => handleDelete(jogador._id)}>Eliminar</button>
                 </td>
               </tr>
