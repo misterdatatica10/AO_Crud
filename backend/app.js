@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const itemsRouter = require('./routes/items');
-require('dotenv').config();  // Importar as variáveis de ambiente
+require('dotenv').config();  // Carregar as variáveis de ambiente
 
 const app = express();
 
@@ -21,15 +21,27 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('Base de dados conectada com sucesso!'))
-.catch(err => console.error('Erro ao conectar à base de dados:', err));
+.then(() => {
+  console.log('Base de dados conectada com sucesso!');
+})
+.catch(err => {
+  console.error('Erro ao conectar à base de dados:', err);
+  console.error('Detalhes do erro:', err.stack);  // Mostrar detalhes do erro (stack trace)
+});
 
 // Usar as rotas
 app.use('/api/items', itemsRouter);
 
 // Rota de teste
 app.get('/test', (req, res) => {
+  console.log('Requisição recebida na rota /test');
   res.json({ message: 'API funcionando!' });
+});
+
+// Rota padrão para captura de erros 404
+app.use((req, res) => {
+  console.log(`Requisição para URL desconhecida: ${req.originalUrl}`);
+  res.status(404).send('Página não encontrada');
 });
 
 // Iniciar o servidor
