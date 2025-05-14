@@ -7,7 +7,7 @@ const app = express();
 
 // configuração do cors para o frontend
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type']
 }));
@@ -15,8 +15,8 @@ app.use(cors({
 // para poder usar json
 app.use(express.json());
 
-// ligar à base de dados
-mongoose.connect('mongodb://localhost:27017/football-players', {
+// Ligar à base de dados utilizando a variável de ambiente
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -31,8 +31,13 @@ app.get('/test', (req, res) => {
   res.json({ message: 'API a funcionar!' });
 });
 
-// iniciar o servidor
+/* iniciar o servidor localmente
 const PORT = 3001;
 app.listen(PORT, 'localhost', () => {
   console.log(`Servidor iniciado na porta ${PORT}`);
-}); 
+});  */
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Servidor iniciado na porta ${PORT}`);
+});
