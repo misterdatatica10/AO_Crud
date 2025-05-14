@@ -24,15 +24,19 @@ function App() {
   useEffect(() => {
     const fetchJogadores = async () => {
       try {
+        console.log('Iniciando busca de jogadores...');
         setLoading(true);
         setError(null);
         const res = await fetch(API_URL);
+        console.log('Status da resposta:', res.status);
         if (!res.ok) {
           throw new Error(`Erro no servidor! Código: ${res.status}`);
         }
         const data = await res.json();
+        console.log('Jogadores recebidos:', data.length);
         setJogadores(data);
       } catch (error) {
+        console.error('Erro ao buscar jogadores:', error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -53,14 +57,17 @@ function App() {
     e.preventDefault();
     try {
       if (editingId) {
+        console.log('Iniciando atualização do jogador:', editingId);
         // atualizar
         const res = await fetch(`${API_URL}/${editingId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form),
         });
+        console.log('Status da atualização:', res.status);
         if (res.ok) {
           const updated = await res.json();
+          console.log('Jogador atualizado:', updated);
           setJogadores(jogadores.map(jogador => jogador._id === editingId ? updated : jogador));
           setEditingId(null);
           setForm({
@@ -72,16 +79,21 @@ function App() {
             goals: 0,
             assists: 0
           });
+        } else {
+          throw new Error(`Erro ao atualizar: ${res.status}`);
         }
       } else {
+        console.log('Iniciando criação de novo jogador:', form);
         // criar novo
         const res = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form),
         });
+        console.log('Status da criação:', res.status);
         if (res.ok) {
           const newJogador = await res.json();
+          console.log('Novo jogador criado:', newJogador);
           setJogadores([...jogadores, newJogador]);
           setForm({
             name: '',
@@ -92,10 +104,13 @@ function App() {
             goals: 0,
             assists: 0
           });
+        } else {
+          throw new Error(`Erro ao criar: ${res.status}`);
         }
       }
     } catch (error) {
-      setError('Erro ao guardar jogador');
+      console.error('Erro ao guardar jogador:', error);
+      setError(`Erro ao guardar jogador: ${error.message}`);
     }
   };
 
@@ -116,12 +131,18 @@ function App() {
   // apagar jogador
   const handleDelete = async id => {
     try {
+      console.log('Iniciando exclusão do jogador:', id);
       const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      console.log('Status da exclusão:', res.status);
       if (res.ok) {
+        console.log('Jogador excluído com sucesso');
         setJogadores(jogadores.filter(jogador => jogador._id !== id));
+      } else {
+        throw new Error(`Erro ao excluir: ${res.status}`);
       }
     } catch (error) {
-      setError('Erro ao apagar jogador');
+      console.error('Erro ao apagar jogador:', error);
+      setError(`Erro ao apagar jogador: ${error.message}`);
     }
   };
 
