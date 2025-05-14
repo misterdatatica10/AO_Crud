@@ -4,23 +4,26 @@ import './App.css';
 // url da api
 const API_URL = `${process.env.REACT_APP_API_URL}/api/items`;
 
+const emptyForm = {
+  name: '',
+  position: '',
+  team: '',
+  age: '',
+  nationality: '',
+  goals: 0,
+  assists: 0
+};
+
 function App() {
   // estados
   const [jogadores, setJogadores] = useState([]);
-  const [form, setForm] = useState({
-    name: '',
-    position: '',
-    team: '',
-    age: '',
-    nationality: '',
-    goals: 0,
-    assists: 0
-  });
+  const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [showForm, setShowForm] = useState(false);
   const rowsPerPage = 10;
 
   // buscar jogadores
@@ -73,15 +76,8 @@ function App() {
           console.log('Jogador atualizado:', updated);
           setJogadores(jogadores.map(jogador => jogador._id === editingId ? updated : jogador));
           setEditingId(null);
-          setForm({
-            name: '',
-            position: '',
-            team: '',
-            age: '',
-            nationality: '',
-            goals: 0,
-            assists: 0
-          });
+          setForm(emptyForm);
+          setShowForm(false);
         } else {
           throw new Error(`Erro ao atualizar: ${res.status}`);
         }
@@ -98,15 +94,8 @@ function App() {
           const newJogador = await res.json();
           console.log('Novo jogador criado:', newJogador);
           setJogadores([...jogadores, newJogador]);
-          setForm({
-            name: '',
-            position: '',
-            team: '',
-            age: '',
-            nationality: '',
-            goals: 0,
-            assists: 0
-          });
+          setForm(emptyForm);
+          setShowForm(false);
         } else {
           throw new Error(`Erro ao criar: ${res.status}`);
         }
@@ -119,7 +108,6 @@ function App() {
 
   // editar jogador
   const handleEdit = jogador => {
-    setEditingId(jogador._id);
     setForm({
       name: jogador.name,
       position: jogador.position,
@@ -129,6 +117,8 @@ function App() {
       goals: jogador.goals,
       assists: jogador.assists
     });
+    setEditingId(jogador._id);
+    setShowForm(true);
   };
 
   // apagar jogador
@@ -163,12 +153,25 @@ function App() {
     currentPage * rowsPerPage
   );
 
+  const handleCancel = () => {
+    setEditingId(null);
+    setForm(emptyForm);
+    setShowForm(false);
+  };
+
   return (
     <div className="App">
       <div className="header">
         <h1 className="header-title">Lista de Jogadores</h1>
         <div className="header-actions">
-          <button className="action-button btn-primary" onClick={() => setEditingId(null)}>
+          <button 
+            className="action-button btn-primary" 
+            onClick={() => {
+              setEditingId(null);
+              setForm(emptyForm);
+              setShowForm(true);
+            }}
+          >
             Adicionar Jogador
           </button>
         </div>
@@ -187,7 +190,7 @@ function App() {
       {error && <div className="error-message">Erro: {error}</div>}
       {loading && <div className="loading">A carregar...</div>}
 
-      {editingId !== null && (
+      {showForm && (
         <form onSubmit={handleSubmit} className="edit-form">
           <div className="Formulario">
             <div>
@@ -276,18 +279,7 @@ function App() {
             <button
               type="button"
               className="action-button btn-secondary"
-              onClick={() => {
-                setEditingId(null);
-                setForm({
-                  name: '',
-                  position: '',
-                  team: '',
-                  age: '',
-                  nationality: '',
-                  goals: 0,
-                  assists: 0
-                });
-              }}
+              onClick={handleCancel}
             >
               Cancelar
             </button>
