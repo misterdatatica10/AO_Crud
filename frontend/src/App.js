@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 
 // url da api
-const API_URL = 'http://localhost:3001/api/items';
+const API_URL = `${process.env.REACT_APP_API_URL}/api/items`;
 
 function App() {
   // estados
