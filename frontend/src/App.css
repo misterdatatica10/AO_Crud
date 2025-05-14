@@ -233,3 +233,140 @@ tr:hover {
     flex-direction: column;
   }
 }
+
+/* Formulário Moderno */
+.Formulario {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  padding: 0 4px;
+  background: transparent;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  background: transparent;
+  transition: all 0.3s ease;
+  color: #1e293b;
+}
+
+.form-group input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: 0;
+  left: 12px;
+  font-size: 0.75rem;
+  background: white;
+  padding: 0 6px;
+  color: #3b82f6;
+}
+
+.form-group input::placeholder {
+  color: transparent;
+}
+
+.form-group input:focus::placeholder {
+  color: #94a3b8;
+}
+
+/* Botões do formulário */
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.form-actions button {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.form-actions .btn-primary {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  border: none;
+  flex: 1;
+}
+
+.form-actions .btn-primary:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-1px);
+}
+
+.form-actions .btn-secondary {
+  background: white;
+  color: #64748b;
+  border: 2px solid #e2e8f0;
+  flex: 1;
+}
+
+.form-actions .btn-secondary:hover {
+  border-color: #94a3b8;
+  color: #1e293b;
+}
+
+/* Animação de entrada do formulário */
+.edit-form {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade do formulário */
+@media (max-width: 768px) {
+  .Formulario {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .form-group input {
+    font-size: 16px; /* Previne zoom em dispositivos móveis */
+  }
+}

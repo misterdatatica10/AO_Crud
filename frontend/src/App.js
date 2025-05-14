@@ -193,92 +193,99 @@ function App() {
       {showForm && (
         <form onSubmit={handleSubmit} className="edit-form">
           <div className="Formulario">
-            <div>
-              <label htmlFor="name">Nome do Jogador</label>
+            <div className="form-group">
               <input
                 id="name"
                 name="name"
-                placeholder="Ex: Cristiano Ronaldo"
                 value={form.name}
                 onChange={handleChange}
+                placeholder="Cristiano Ronaldo"
                 required
               />
+              <label htmlFor="name">Nome do Jogador</label>
             </div>
-            <div>
-              <label htmlFor="position">Posição no Campo</label>
+
+            <div className="form-group">
               <input
                 id="position"
                 name="position"
-                placeholder="Ex: Avançado, Médio, Defesa"
                 value={form.position}
                 onChange={handleChange}
+                placeholder="Avançado"
                 required
               />
+              <label htmlFor="position">Posição no Campo</label>
             </div>
-            <div>
-              <label htmlFor="team">Clube Atual</label>
+
+            <div className="form-group">
               <input
                 id="team"
                 name="team"
-                placeholder="Ex: Benfica, Porto, Sporting"
                 value={form.team}
                 onChange={handleChange}
+                placeholder="Benfica"
                 required
               />
+              <label htmlFor="team">Clube Atual</label>
             </div>
-            <div>
-              <label htmlFor="age">Idade do Jogador</label>
+
+            <div className="form-group">
               <input
                 id="age"
                 name="age"
                 type="number"
-                placeholder="Ex: 25"
                 value={form.age}
                 onChange={handleChange}
+                placeholder="25"
                 required
               />
+              <label htmlFor="age">Idade do Jogador</label>
             </div>
-            <div>
-              <label htmlFor="nationality">Nacionalidade</label>
+
+            <div className="form-group">
               <input
                 id="nationality"
                 name="nationality"
-                placeholder="Ex: Portuguesa"
                 value={form.nationality}
                 onChange={handleChange}
+                placeholder="Portuguesa"
                 required
               />
+              <label htmlFor="nationality">Nacionalidade</label>
             </div>
-            <div>
-              <label htmlFor="goals">Número de Golos Marcados</label>
+
+            <div className="form-group">
               <input
                 id="goals"
                 name="goals"
                 type="number"
-                placeholder="Ex: 15"
                 value={form.goals}
                 onChange={handleChange}
+                placeholder="15"
               />
+              <label htmlFor="goals">Número de Golos</label>
             </div>
-            <div>
-              <label htmlFor="assists">Número de Assistências</label>
+
+            <div className="form-group">
               <input
                 id="assists"
                 name="assists"
                 type="number"
-                placeholder="Ex: 8"
                 value={form.assists}
                 onChange={handleChange}
+                placeholder="8"
               />
+              <label htmlFor="assists">Número de Assistências</label>
             </div>
           </div>
+
           <div className="form-actions">
-            <button type="submit" className="action-button btn-primary">
+            <button type="submit" className="btn-primary">
               {editingId ? 'Atualizar Jogador' : 'Adicionar Jogador'}
             </button>
             <button
               type="button"
-              className="action-button btn-secondary"
+              className="btn-secondary"
               onClick={handleCancel}
             >
               Cancelar
