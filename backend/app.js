@@ -32,6 +32,11 @@ mongoose.connect(process.env.MONGODB_URI, {
 // Usar as rotas
 app.use('/api/items', itemsRouter);
 
+// Rota raiz para evitar "URL desconhecida"
+app.get('/', (req, res) => {
+  res.send('API do CRUD está funcionando!');
+});
+
 // Rota de teste
 app.get('/test', (req, res) => {
   console.log('Requisição recebida na rota /test');
@@ -40,7 +45,7 @@ app.get('/test', (req, res) => {
 
 // Rota padrão para captura de erros 404
 app.use((req, res) => {
-  console.log(`Requisição para URL desconhecida: ${req.originalUrl}`);
+  console.log(`Requisição para URL desconhecida: ${req.originalUrl} ${req.method} ${req.url}`);
   res.status(404).send('Página não encontrada');
 });
 
